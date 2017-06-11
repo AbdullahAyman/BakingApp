@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">BakingApp</string>
+    <string name="baseURL">https://d17h27t6h515a5.cloudfront.net</string>
+    <string name="functionBaking">topher/2017/May/59121517_baking/baking.json</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+    <!--Navigation Labels-->
+    <string name="labelHome">Home</string>
+    <string name="labelAbout">About</string>
+
+    <!--CardView Labels-->
+    <string name="labelBakeName">Bake Name</string>
+    <string name="labelBakeDescription">Bake Description</string>
+    <string name="labelBakeServing">Serving: </string>
+    <string name="labelPeople">People</string>
+    <string name="labelOf">of</string>
+
+
+    <!--drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Baking Activity View-->
+    <string name="loadingData">Loading Data...</string>
+    <string name="toolbarTitle">Baking Time</string>
+
+    <!--Recipe Card Description-->
+    <string name="recipeIngredients">Recipe Ingredients</string>
+
+
+    <!--Recipe Video Steps-->
+    <string name="nextRecipe">Next</string>
+    <string name="previousRecipe">Previous</string>
+    <string name="stepDescription">Step Description</string>
+    <string name="stepLabel">Step:</string>
+
+    <!-- Warning Message-->
+    <string name="errorLoading">an error occur during loading video</string>
+    <string name="firstStep">this is the first Step</string>
+    <string name="lastStep">this is the last Step</string>
+</resources>
