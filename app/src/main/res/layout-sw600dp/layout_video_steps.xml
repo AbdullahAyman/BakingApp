@@ -6,11 +6,11 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/relative_step_video_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7">
+        android:layout_weight="0.6">
 
         <com.google.android.exoplayer2.ui.SimpleExoPlayerView
             android:id="@+id/player_view"
@@ -19,14 +19,19 @@
             app:fastforward_increment="3000"
             app:resize_mode="fit"
             app:rewind_increment="3000" />
-    </RelativeLayout>
+    </LinearLayout>
 
+    <ImageView
+        android:id="@+id/img_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2" />
     <TextView
 
         android:id="@+id/steps_description"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="0.2"
         android:gravity="start"
         android:padding="@dimen/margin_5dp"
         android:text="@string/stepDescription"
@@ -38,7 +43,7 @@
         android:id="@+id/step_controller"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2"
+        android:layout_weight="0.1"
         android:gravity="bottom"
         android:orientation="horizontal"
         android:visibility="gone"

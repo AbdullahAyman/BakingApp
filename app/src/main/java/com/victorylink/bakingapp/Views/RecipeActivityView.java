@@ -102,8 +102,10 @@ public class RecipeActivityView extends AppCompatActivity implements ActionTaken
         /*if (savedInstanceState != null)
             return;*/
         Intent intent = getIntent();
-        mBackingResponse = intent.getExtras().getParcelable(BakingConstants.BAKING_ITEM_LIST);
-        toolbarTitle.setText(mBackingResponse.getName());
+        if (intent != null) {
+            mBackingResponse = intent.getExtras().getParcelable(BakingConstants.BAKING_ITEM_LIST);
+            toolbarTitle.setText(mBackingResponse.getName());
+        }
 
         if (isTab) {
             setUpMobileView(mBackingResponse);

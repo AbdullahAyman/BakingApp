@@ -4,12 +4,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -61,9 +63,11 @@ public class StepsFragment extends BaseFragment {
     @BindView(R.id.player_view)
     SimpleExoPlayerView exoPlayerView;
     @BindView(R.id.relative_step_video_container)
-    RelativeLayout relativeLayoutContainer;
+    LinearLayout relativeLayoutContainer;
     @BindView(R.id.step_controller)
     LinearLayout linearController;
+    @BindView(R.id.img_thumbnail)
+    ImageView imagethumbnail;
     @BindBool(R.bool.isTablet)
     boolean isTab;
 
@@ -109,6 +113,7 @@ public class StepsFragment extends BaseFragment {
             linearController.setVisibility(View.VISIBLE);
         createExoPlayer(mBackingResponses.getSteps().get(currentStepId).getVideoURL());
         displayStepNo(currentStepId);
+        displayImgThumb(mBackingResponses.getSteps().get(currentStepId).getThumbnailURL());
         previousStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +136,22 @@ public class StepsFragment extends BaseFragment {
 
             }
         });
+    }
+
+    private void displayImgThumb(String thumbnailURL) {
+        if (thumbnailURL.length() > 0) {
+            Glide.with(getActivity())
+                    .load(thumbnailURL)
+                    .centerCrop()
+                    .placeholder(R.drawable.cooking)
+                    .crossFade()
+                    .error(R.drawable.cooking)
+                    .into(imagethumbnail);
+        } else {
+            imagethumbnail.setVisibility(View.GONE);
+            exoPlayerView.setLayoutParams(new LinearLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+
+        }
     }
 
     private void displayStepNo(int currentStepId) {
@@ -188,4 +209,11 @@ public class StepsFragment extends BaseFragment {
         player = null;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        player.stop();
+        player.release();
+        player = null;
+    }
 }
