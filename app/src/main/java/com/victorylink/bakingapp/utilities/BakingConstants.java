@@ -1,6 +1,10 @@
 package com.victorylink.bakingapp.utilities;
 
 
+import com.victorylink.bakingapp.DataModel.BackingResponse;
+
+import java.util.ArrayList;
+
 public class BakingConstants {
 
     /**
@@ -16,4 +20,6 @@ public class BakingConstants {
     public static String BAKING_RECYCLER_INDEX = "recyclerIndex";
     public static String CURRENT_FRAGMENT = "currentFragment";
     public static String CURRENT_SELECTED_ITEM = "selectedItem";
+    public static ArrayList<BackingResponse> mBackingResponse = new ArrayList<BackingResponse>();
+    public static int index = 0;
 }

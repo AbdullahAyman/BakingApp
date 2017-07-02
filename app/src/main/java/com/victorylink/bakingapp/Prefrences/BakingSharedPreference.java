@@ -84,7 +84,7 @@ public class BakingSharedPreference {
 
         int listSize = mPreference.getInt(superKey, 0);
 
-        ArrayList<String> finalList = new ArrayList<>();
+        ArrayList<String> finalList = new ArrayList<String>();
         for (int i = 0; i < listSize; i++) {
             finalList.add(mPreference.getString((subKey + i), null));
         }

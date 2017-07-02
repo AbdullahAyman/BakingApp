@@ -44,10 +44,10 @@ public class BackingResponse implements Parcelable
     private String name;
     @SerializedName("ingredients")
     @Expose
-    private List<Ingredient> ingredients = new ArrayList<>();
+    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
     @SerializedName("steps")
     @Expose
-    private List<Step> steps = new ArrayList<>();
+    private List<Step> steps = new ArrayList<Step>();
     @SerializedName("servings")
     @Expose
     private Integer servings;

@@ -9,6 +9,7 @@ import com.victorylink.bakingapp.Interfaces.BakingInteractor;
 import com.victorylink.bakingapp.Interfaces.BakingPresenter;
 import com.victorylink.bakingapp.Interfaces.BakingView;
 import com.victorylink.bakingapp.Networking.Interfaces.CallBackJSONArray;
+import com.victorylink.bakingapp.utilities.BakingConstants;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class BakingPresenterImpl implements BakingPresenter, CallBackJSONArray {
         try {
             ArrayList<BackingResponse> mResponse = gson.fromJson(o.body(), listType);
             bakingView.assignAdapterData(mResponse);
+            BakingConstants.mBackingResponse = mResponse;
         } catch (Exception e) {
         }
     }
