@@ -204,16 +204,20 @@ public class StepsFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        player.stop();
-        player.release();
-        player = null;
+        if (player != null) {
+            player.stop();
+            player.release();
+            player = null;
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        player.stop();
-        player.release();
-        player = null;
+        if (player != null) {
+            player.stop();
+            player.release();
+            player = null;
+        }
     }
 }

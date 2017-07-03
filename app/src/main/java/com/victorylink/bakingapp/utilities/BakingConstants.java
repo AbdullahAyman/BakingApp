@@ -21,5 +21,5 @@ public class BakingConstants {
     public static String CURRENT_FRAGMENT = "currentFragment";
     public static String CURRENT_SELECTED_ITEM = "selectedItem";
     public static ArrayList<BackingResponse> mBackingResponse = new ArrayList<BackingResponse>();
-    public static int index = 0;
+
 }

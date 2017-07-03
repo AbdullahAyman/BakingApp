@@ -15,6 +15,7 @@ import timber.log.Timber;
 
 
 public class BakingApp extends Application {
+    public static int index = -1;//set to -1 to load first item when incremented
     private static String BASE_URL = "";
     private static RetrofitInterface retrofitInterface;
     BakingAppComponent daggerBakingAppComponent;
