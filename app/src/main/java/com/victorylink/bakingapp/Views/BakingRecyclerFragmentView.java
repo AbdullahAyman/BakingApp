@@ -92,7 +92,7 @@ public class BakingRecyclerFragmentView extends BaseFragment implements BakingVi
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
+        /*BakingRecyclerView = (RecyclerView)view.findViewById(R.id.recycler_view_backing);*/
         mBakingPresenter = new BakingPresenterImpl(BakingRecyclerFragmentView.this);
         pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override

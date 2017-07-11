@@ -30,12 +30,11 @@ import butterknife.OnClick;
 
 public class BakingActivityView extends AppCompatActivity implements BakingView {
 
+    public static BackingResponse mBackingResponse;
+    public static String currentFragment = "";
     BakingPresenter mBakingPresenter;
     ProgressDialog progressDialog;
     ArrayList<BackingResponse> mBakingArrayResponse;
-
-    BackingResponse mBackingResponse;
-    String currentFragment = "";
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
