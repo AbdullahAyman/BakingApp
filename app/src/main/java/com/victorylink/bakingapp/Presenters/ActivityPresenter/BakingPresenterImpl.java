@@ -79,6 +79,7 @@ public class BakingPresenterImpl implements BakingPresenter, CallBackJSONArray {
     public void OnFail(Throwable o) {
         if (bakingView != null) {
             bakingView.hideProgress();
+            bakingView.failerLoadingData();
         }
     }
 

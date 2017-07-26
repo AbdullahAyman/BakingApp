@@ -9,7 +9,8 @@
     <LinearLayout
         android:id="@+id/relative_step_video_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.google.android.exoplayer2.ui.SimpleExoPlayerView
             android:id="@+id/player_view"
@@ -18,6 +19,13 @@
             app:fastforward_increment="3000"
             app:resize_mode="fill"
             app:rewind_increment="3000" />
+
+        <ImageView
+            android:id="@+id/img_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:visibility="gone" />
     </LinearLayout>
 
     <TextView

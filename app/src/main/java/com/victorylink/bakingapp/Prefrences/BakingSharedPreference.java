@@ -2,8 +2,7 @@ package com.victorylink.bakingapp.Prefrences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.victorylink.bakingapp.utilities.BakingApp;
+import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 
@@ -14,9 +13,9 @@ public class BakingSharedPreference {
     /**
      * constructor for creating instance of SharedPreference class for saving data
      */
-    public BakingSharedPreference(/*Context mcontext*/) {
-        mContext = mContext;
-        mPreference = BakingApp.newInstance().getSharedPreferences()/*PreferenceManager.getDefaultSharedPreferences(mContext)*/;
+    public BakingSharedPreference(Context context) {
+        mContext = context;
+        mPreference = /*BakingApp.newInstance().getSharedPreferences()*/PreferenceManager.getDefaultSharedPreferences(mContext);
     }
 
     /**

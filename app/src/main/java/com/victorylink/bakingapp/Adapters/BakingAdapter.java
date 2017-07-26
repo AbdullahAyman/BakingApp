@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.victorylink.bakingapp.DataModel.BackingResponse;
 import com.victorylink.bakingapp.Interfaces.BakingView;
+import com.victorylink.bakingapp.Prefrences.BakingSharedPreference;
 import com.victorylink.bakingapp.R;
+import com.victorylink.bakingapp.utilities.BakingConstants;
 
 import java.util.ArrayList;
 
@@ -66,7 +68,8 @@ public class BakingAdapter extends RecyclerView.Adapter<BakingAdapter.BakingAdap
             @Override
             public void onClick(View v) {
                 mBakingView.loadSelectedItem(backingResponse);
-
+                BakingSharedPreference bakingSharedPreference = new BakingSharedPreference(mContext);
+                bakingSharedPreference.saveStringToSharedPreference(BakingConstants.LAST_VISITED_ID, backingResponse.getId() + "");
             }
         });
     }

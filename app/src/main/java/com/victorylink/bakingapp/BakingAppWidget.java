@@ -15,8 +15,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 import com.victorylink.bakingapp.DataModel.BackingResponse;
+import com.victorylink.bakingapp.DataModel.Ingredient;
 import com.victorylink.bakingapp.Networking.Interfaces.CallBackJSONArray;
 import com.victorylink.bakingapp.Networking.Parser.JSONArrayParser;
+import com.victorylink.bakingapp.Prefrences.BakingSharedPreference;
 import com.victorylink.bakingapp.Views.RecipeActivityView;
 import com.victorylink.bakingapp.utilities.BakingApp;
 import com.victorylink.bakingapp.utilities.BakingConstants;
@@ -34,9 +36,13 @@ public class BakingAppWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-
+        String id = "0";
+        BakingSharedPreference bakingSharedPreference = new BakingSharedPreference(context);
+        bakingSharedPreference.retrieveStringFromSharedPreference(BakingConstants.LAST_VISITED_ID);
+        if (bakingSharedPreference.retrieveStringFromSharedPreference(BakingConstants.LAST_VISITED_ID).length() > 0)
+            id = bakingSharedPreference.retrieveStringFromSharedPreference(BakingConstants.LAST_VISITED_ID);
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
+        RemoteViews views = new RemoteViews("com.victorylink.bakingapp", R.layout.layout_widget_card_view);
         String bakingName = "", Serving = "", imageUrl = "";
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.cooking);
         if (BakingApp.index < BakingConstants.mBackingResponse.size()) {
@@ -44,7 +50,7 @@ public class BakingAppWidget extends AppWidgetProvider {
         } else {
             BakingApp.index = 0;
         }
-        BackingResponse backingResponse = BakingConstants.mBackingResponse.get(BakingApp.index);
+        BackingResponse backingResponse = BakingConstants.mBackingResponse.get(Integer.parseInt(id));
         if (BakingConstants.mBackingResponse.size() > 0) {
             bakingName = backingResponse.getName();
             Serving = backingResponse.getServings() + " People";
@@ -60,15 +66,20 @@ public class BakingAppWidget extends AppWidgetProvider {
                 }
 
         }
+        String mStringBuilder = "--Ingredients: \n";
+        for (int i = 0; i < backingResponse.getIngredients().size(); i++) {
+            Ingredient mIngredient = backingResponse.getIngredients().get(i);
+            mStringBuilder = mStringBuilder + "# " + mIngredient.getQuantity() + " " + mIngredient.getMeasure() + " " + mIngredient.getIngredient() + "\n";
+        }
         Log.d("bakingName", "updateAppWidget: " + bakingName, null);
-        views.setTextViewText(R.id.card_bake_name, bakingName);
-        views.setTextViewText(R.id.card_bake_description, "Serving: " + Serving);
-
-        views.setImageViewBitmap(R.id.img_card, bitmap);
+        views.setTextViewText(R.id.widget_card_bake_name, bakingName);
+        views.setTextViewText(R.id.widget_card_bake_description, "Serving: " + Serving);
+        views.setTextViewText(R.id.widget_card_bake_ingredient, mStringBuilder);
+        views.setImageViewBitmap(R.id.widget_img_card, bitmap);
         Intent intent = new Intent(context, RecipeActivityView.class);
         intent.putExtra(BakingConstants.BAKING_ITEM_LIST, backingResponse);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        views.setOnClickPendingIntent(R.id.card_view, pendingIntent);
+        views.setOnClickPendingIntent(R.id.rlt_widget, pendingIntent);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

@@ -13,4 +13,6 @@ public interface BakingView {
     void assignAdapterData(ArrayList<BackingResponse> mResponse);
 
     void loadSelectedItem(BackingResponse mBackingResponse);
+
+    void failerLoadingData();
 }

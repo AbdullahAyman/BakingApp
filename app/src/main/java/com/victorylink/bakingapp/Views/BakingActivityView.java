@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.victorylink.bakingapp.DataModel.BackingResponse;
 import com.victorylink.bakingapp.Interfaces.BakingPresenter;
@@ -32,8 +33,8 @@ public class BakingActivityView extends AppCompatActivity implements BakingView 
 
     public static BackingResponse mBackingResponse;
     public static String currentFragment = "";
+    public static ProgressDialog progressDialog;
     BakingPresenter mBakingPresenter;
-    ProgressDialog progressDialog;
     ArrayList<BackingResponse> mBakingArrayResponse;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -67,6 +68,10 @@ public class BakingActivityView extends AppCompatActivity implements BakingView 
 
     }
 
+    @Override
+    public void failerLoadingData() {
+        Toast.makeText(this, getResources().getString(R.string.errorLoading), Toast.LENGTH_SHORT).show();
+    }
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);

@@ -36,7 +36,10 @@
     <string name="stepLabel">Step:</string>
 
     <!-- Warning Message-->
-    <string name="errorLoading">an error occur during loading video</string>
+    <string name="errorLoading">an error occur during loading </string>
     <string name="firstStep">this is the first Step</string>
     <string name="lastStep">this is the last Step</string>
+
+    <!--Widget-->
+    <string name="ingredient">Ingredients</string>
 </resources>

@@ -46,6 +46,7 @@ public class RecipeActivityView extends AppCompatActivity implements ActionTaken
         drawerLayout.closeDrawer(GravityCompat.START);
         Intent intent = new Intent(RecipeActivityView.this, BakingActivityView.class);
         startActivity(intent);
+        this.finish();
 
     }
 
@@ -91,6 +92,7 @@ public class RecipeActivityView extends AppCompatActivity implements ActionTaken
         if (currentFragment.equals(RecipeRecyclerFragment.class.getSimpleName())) {
             Intent intent = new Intent(RecipeActivityView.this, BakingActivityView.class);
             startActivity(intent);
+            this.finish();
         }
     }
 

@@ -33,6 +33,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.victorylink.bakingapp.DataModel.BackingResponse;
+import com.victorylink.bakingapp.Prefrences.BakingSharedPreference;
 import com.victorylink.bakingapp.R;
 import com.victorylink.bakingapp.Views.BaseViews.BaseFragment;
 import com.victorylink.bakingapp.utilities.BakingConstants;
@@ -50,7 +51,8 @@ import butterknife.ButterKnife;
 public class StepsFragment extends BaseFragment {
     static BackingResponse mBackingResponses;
     static int currentStepId = 0;
-    SimpleExoPlayer player;
+    static SimpleExoPlayer player;
+    long currentPeriodMillisecond = 0;
 
     @BindView(R.id.btn_previous)
     Button previousStep;
@@ -81,6 +83,9 @@ public class StepsFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(BakingConstants.CURRENT_SELECTED_ITEM, currentStepId);
+        if (player != null) {
+            outState.putLong(BakingConstants.CURRENT_PLAYER_PERIOD, player.getCurrentPosition());
+        }
     }
 
     @Override
@@ -88,7 +93,15 @@ public class StepsFragment extends BaseFragment {
         super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState != null) {
             currentStepId = savedInstanceState.getInt(BakingConstants.CURRENT_SELECTED_ITEM);
+            currentPeriodMillisecond = savedInstanceState.getLong(BakingConstants.CURRENT_PLAYER_PERIOD);
             displayStepNo(currentStepId);
+            try {
+                player.seekTo(currentPeriodMillisecond);
+            } catch (Exception e) {
+                player.seekTo(0);
+
+            }
+
         }
     }
 
@@ -107,11 +120,37 @@ public class StepsFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        //this will reset video start for each new one
+        BakingSharedPreference bakingSharedPreference = new BakingSharedPreference(getActivity());
+
+        try {
+
+            int videoID = Integer.parseInt(bakingSharedPreference.retrieveStringFromSharedPreference(BakingConstants.VIDEO_ID));
+            if (videoID == mBackingResponses.getSteps().get(currentStepId).getId())
+                currentPeriodMillisecond = Long.parseLong(bakingSharedPreference.retrieveStringFromSharedPreference(BakingConstants.CURRENT_PLAYER_PERIOD));
+            else {
+                currentPeriodMillisecond = 0;
+                bakingSharedPreference.saveStringToSharedPreference(BakingConstants.CURRENT_PLAYER_PERIOD, "0");
+                bakingSharedPreference.saveStringToSharedPreference(BakingConstants.VIDEO_ID, mBackingResponses.getId() + "");
+
+            }
+        } catch (Exception e) {
+            currentPeriodMillisecond = 0;
+            bakingSharedPreference.saveStringToSharedPreference(BakingConstants.CURRENT_PLAYER_PERIOD, "0");
+            bakingSharedPreference.saveStringToSharedPreference(BakingConstants.VIDEO_ID, mBackingResponses.getId() + "");
+
+        }
+
+        if (savedInstanceState == null)
+            setupView();
+    }
+
+    private void setupView() {
+
         if (isTab)
             linearController.setVisibility(View.GONE);
         else
             linearController.setVisibility(View.VISIBLE);
-        createExoPlayer(mBackingResponses.getSteps().get(currentStepId).getVideoURL());
         displayStepNo(currentStepId);
         displayImgThumb(mBackingResponses.getSteps().get(currentStepId).getThumbnailURL());
         previousStep.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +194,7 @@ public class StepsFragment extends BaseFragment {
     }
 
     private void displayStepNo(int currentStepId) {
-        preparePlayer(mBackingResponses.getSteps().get(currentStepId).getVideoURL());
+        createExoPlayer(mBackingResponses.getSteps().get(currentStepId).getVideoURL());
         stepDescription.setText(mBackingResponses.getSteps().get(currentStepId).getDescription());
         stepCount.setText(getResources().getString(R.string.stepLabel) + " " + currentStepId);
         YoYo.with(Techniques.FadeInLeft)
@@ -178,6 +217,15 @@ public class StepsFragment extends BaseFragment {
         exoPlayerView.setPlayer(player);
         preparePlayer(url);
         player.setPlayWhenReady(true);
+
+        try {
+            player.seekTo(currentPeriodMillisecond);
+        } catch (Exception e) {
+            player.seekTo(0);
+
+        }
+
+
     }
 
     private void preparePlayer(String url) {
@@ -214,7 +262,11 @@ public class StepsFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
+
         if (player != null) {
+            BakingSharedPreference bakingSharedPreference = new BakingSharedPreference(getActivity());
+            bakingSharedPreference.saveStringToSharedPreference(BakingConstants.CURRENT_PLAYER_PERIOD, player.getCurrentPosition() + "");
+            bakingSharedPreference.saveStringToSharedPreference(BakingConstants.VIDEO_ID, mBackingResponses.getSteps().get(currentStepId).getId() + "");
             player.stop();
             player.release();
             player = null;

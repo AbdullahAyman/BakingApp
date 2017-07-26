@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlt_widget"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
+
+    <ImageView
+        android:id="@+id/widget_img_card"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:focusable="false"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cooking" />
+
+    <TextView
+        android:id="@+id/widget_card_bake_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/widget_img_card"
+        android:focusable="false"
+        android:gravity="start"
+        android:paddingStart="@dimen/margin_20dp"
+        android:paddingTop="@dimen/margin_5dp"
+        android:text="@string/labelBakeName"
+        android:textColor="@color/colorNavigationMenuBg"
+        android:textSize="@dimen/size_14sp" />
+
+
+    <TextView
+        android:id="@+id/widget_card_bake_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/widget_card_bake_name"
+        android:focusable="false"
+        android:gravity="start"
+        android:paddingEnd="@dimen/margin_10dp"
+        android:paddingStart="@dimen/margin_20dp"
+        android:text="@string/labelBakeDescription"
+        android:textColor="@color/colorNavigationMenuBg"
+        android:textSize="@dimen/size_14sp" />
+
+    <TextView
+        android:id="@+id/widget_card_bake_ingredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/widget_card_bake_description"
+        android:layout_margin="5dp"
+        android:ellipsize="marquee"
+        android:fadingEdge="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:isScrollContainer="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:nextFocusLeft="@+id/widget_card_bake_ingredient"
+        android:nextFocusUp="@+id/widget_card_bake_ingredient"
+        android:scrollHorizontally="true"
+        android:scrollbars="vertical"
+        android:text=""
+        android:textColor="@color/colorNavigationMenuBg"
+        android:textSize="@dimen/size_14sp">
+
+    </TextView>
+</RelativeLayout>

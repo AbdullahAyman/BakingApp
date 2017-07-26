@@ -20,6 +20,10 @@ public class BakingConstants {
     public static String BAKING_RECYCLER_INDEX = "recyclerIndex";
     public static String CURRENT_FRAGMENT = "currentFragment";
     public static String CURRENT_SELECTED_ITEM = "selectedItem";
+    public static String CURRENT_PLAYER_PERIOD = "periodIndex";
+    public static String LAST_VISITED_ID = "id";
+    public static String VIDEO_ID = "video_Id";
+
     public static ArrayList<BackingResponse> mBackingResponse = new ArrayList<BackingResponse>();
 
 }

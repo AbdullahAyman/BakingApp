@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.victorylink.bakingapp.Adapters.BakingAdapter;
 import com.victorylink.bakingapp.DataModel.BackingResponse;
@@ -155,6 +156,11 @@ public class BakingRecyclerFragmentView extends BaseFragment implements BakingVi
     @Override
     public void loadSelectedItem(BackingResponse mBackingResponse) {
         // not used and the returned data gone to BakingActivityView
+    }
+
+    @Override
+    public void failerLoadingData() {
+        Toast.makeText(getActivity(), getResources().getString(R.string.errorLoading), Toast.LENGTH_SHORT).show();
     }
 
     void assignLocalAdapter(ArrayList<BackingResponse> mResponse) {

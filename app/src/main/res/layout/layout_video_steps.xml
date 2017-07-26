@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:weightSum="1">
 
+
     <LinearLayout
         android:id="@+id/relative_step_video_container"
         android:layout_width="match_parent"
